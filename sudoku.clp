@@ -324,17 +324,3 @@
    
    (assert (phase final-output))
    (assert (print-position 1 1)))
-
-   
-
-  
-    
-   
-   
-   
-   
-   
-   
-   
-   
-   

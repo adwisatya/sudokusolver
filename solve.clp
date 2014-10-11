@@ -287,7 +287,29 @@
    =>
    
    (assert (impossible (id ?id2) (value ?v) (rank ?p) (reason "Naked Single"))))
+   
+;;; *******************
+;;; naked-single-diagonal
+;;; *******************
+(defrule naked-single-diagonal
+   
+   (phase match)
 
+   (rank (value ?p) (process yes))
+
+   (technique (name Naked-Single) (rank ?p))
+   
+   (possible (value ?v) (diagonal ?d&~3) (id ?id))
+   
+   (not (possible (value ~?v) (diagonal ?d&~3) (id ?id)))
+   
+   (possible (value ?v) (diagonal ?d&~3) (id ?id2&~?id))
+   
+   (not (impossible (id ?id2) (value ?v) (rank ?p)))
+
+   =>
+   
+   (assert (impossible (id ?id2) (value ?v) (rank ?p) (reason "Naked Single"))))
 ;;; ##############
 ;;; Hidden Singles
 ;;; ##############
