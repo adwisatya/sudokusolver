@@ -100,7 +100,7 @@
    
    (size ?s)
    
-   ?f1 <- (print-position ?r ?c&~=(* ?s 2))
+   ?f1 <- (print-position ?r ?c&~=(* 3 2))
    
    ?f2 <- (position-printed ?r ?c)
       
@@ -156,7 +156,7 @@
    
    (size ?s)
 
-   ?f2 <- (print-position ?r&=(* 3 2) ?c&=(* 3 2))
+   ?f2 <- (print-position ?r&=(* 3 2) ?c&=(* 2))
    
    ?f3 <- (position-printed ?r ?c)
    

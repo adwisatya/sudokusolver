@@ -21,8 +21,7 @@
    (slot value)
    (slot group)
    (slot id)
-   (slot diagonal)
-   )
+   (slot diagonal))
    
 (deftemplate impossible
    (slot id)
@@ -45,7 +44,8 @@
 (deftemplate iterate-rc
    (slot row)
    (slot column)
-   (slot index))
+   (slot index)
+   (slot diagonal))
    
 (deftemplate rank
    (slot value)
@@ -74,8 +74,7 @@
    (assert (size-value (size 2) (value 3)))
    (assert (size-value (size 2) (value 4)))
    (assert (size-value (size 3) (value 5)))
-   (assert (size-value (size 3) (value 6)))
-   )
+   (assert (size-value (size 3) (value 6))))
 
 ;;; ***********
 ;;; stress-test
@@ -132,13 +131,13 @@
 
    (phase expand-any)
    
-   (possible (row ?r) (column ?c) (value any) (id ?id))
+   (possible (row ?r) (column ?c) (value any) (id ?id) (diagonal ?d))
   
    (not (possible (value any) (id ?id2&:(< ?id2 ?id))))
       
    =>
       
-   (assert (iterate-rc (row ?r) (column ?c) (index 1))))
+   (assert (iterate-rc (row ?r) (column ?c) (index 1) (diagonal ?d))))
 
 ;;; **********
 ;;; expand-any
@@ -150,21 +149,21 @@
 
    (phase expand-any)
    
-   (possible (row ?r) (column ?c) (value any) (group ?g) (id ?id))
+   (possible (row ?r) (column ?c) (value any) (group ?g) (id ?id) (diagonal ?d))
   
    (not (possible (value any) (id ?id2&:(< ?id2 ?id))))
    
    (size ?s)
    
-   ?f <- (iterate-rc (row ?r) (column ?c) (index ?v))
+   ?f <- (iterate-rc (row ?r) (column ?c) (index ?v) (diagonal ?d))
    
    (size-value (size ?as&:(<= ?as ?s)) (value ?v))
    
-   (not (possible (row ?r) (column ?c) (value ?v)))
+   (not (possible (row ?r) (column ?c) (value ?v) (diagonal ?d)))
      
    =>
    
-   (assert (possible (row ?r) (column ?c) (value ?v) (group ?g) (id ?id)))
+   (assert (possible (row ?r) (column ?c) (value ?v) (group ?g) (id ?id) (diagonal ?d)))
    
    (modify ?f (index (+ ?v 1))))
    
@@ -178,11 +177,11 @@
 
    (phase expand-any)
    
-   ?f1 <- (possible (row ?r) (column ?c) (value any))
+   ?f1 <- (possible (row ?r) (column ?c) (value any) (diagonal ?d))
      
    (size ?s)
    
-   ?f2 <- (iterate-rc (row ?r) (column ?c) (index ?v))
+   ?f2 <- (iterate-rc (row ?r) (column ?c) (index ?v) (diagonal ?d))
    
    (not (size-value (size ?as&:(<= ?as ?s)) (value ?v)))
 
