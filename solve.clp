@@ -386,6 +386,30 @@
    
    (assert (impossible (id ?id) (value ?v2) (rank ?p) (reason "Hidden Single"))))
 
+;;; ********************
+;;; hidden-single-diagonal
+;;; ********************
+
+(defrule hidden-single-diagonal
+   
+   (phase match)
+
+   (rank (value ?p) (process yes))
+
+   (technique (name Hidden-Single) (rank ?p))
+   
+   (possible (value ?v) (diagonal ?d&~3) (id ?id))
+   
+   (not (possible (value ?v) (diagonal ?d&~3) (id ~?id)))
+   
+   (possible (value ?v2&~?v) (diagonal ?d&~3) (id ?id))
+   
+   (not (impossible (id ?id) (value ?v2) (rank ?p)))
+
+   =>
+   
+   (assert (impossible (id ?id) (value ?v2) (rank ?p) (reason "Hidden Single"))))
+
 ;;; ############################
 ;;; Locked Candidate Single Line
 ;;; ############################
@@ -431,6 +455,29 @@
    (not (possible (value ?v) (column ~?c) (group ?g)))
    
    (possible (value ?v) (column ?c) (group ~?g) (id ?id))
+   
+   (not (impossible (id ?id) (value ?v) (rank ?p)))
+
+   =>
+   
+   (assert (impossible (id ?id) (value ?v) (rank ?p) (reason "Locked Candidate Single Line"))))
+;;; ***********************************
+;;; locked-candidate-single-line-diagonal
+;;; ***********************************
+
+(defrule locked-candidate-single-line-diagonal
+
+   (phase match)
+
+   (rank (value ?p) (process yes))
+
+   (technique (name Locked-Candidate-Single-Line) (rank ?p))
+   
+   (possible (value ?v) (diagonal ?d&~3) (group ?g))
+   
+   (not (possible (value ?v) (diagonal ?d&~3) (group ?g)))
+   
+   (possible (value ?v) (diagonal ?d&~3) (group ~?g) (id ?id))
    
    (not (impossible (id ?id) (value ?v) (rank ?p)))
 

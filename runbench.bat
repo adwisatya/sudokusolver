@@ -4,7 +4,7 @@
 (load "sudoku.clp")
 (load "solve.clp")
 (load "output-frills.clp")
-(load "puzzles//grid3x2.clp")
+(load "puzzles//testcase0.clp")
 (reset)
 (run)
 (reset)
